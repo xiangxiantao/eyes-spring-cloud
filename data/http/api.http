@@ -30,3 +30,6 @@ Content-Type: application/json
 {
   "serial": "web serial"
 }
+
+###
+GET http://127.0.0.1:8001/payment/discovery

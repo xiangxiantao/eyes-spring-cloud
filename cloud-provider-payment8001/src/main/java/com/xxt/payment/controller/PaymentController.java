@@ -6,7 +6,11 @@ import com.xxt.payment.service.PaymentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @author xiantao.xiang
@@ -22,6 +26,9 @@ public class PaymentController {
 
     @Autowired
     private PaymentService paymentService;
+
+    @Autowired
+    private DiscoveryClient discoveryClient;
 
     @GetMapping("/get")
     public CommonResult getById(Long id) {
@@ -39,5 +46,18 @@ public class PaymentController {
         } else {
             return new CommonResult(444, "fail" + port);
         }
+    }
+
+    @GetMapping("discovery")
+    public Object discovery() {
+        List<String> services = discoveryClient.getServices();
+        services.forEach(System.out::println);
+
+        List<ServiceInstance> instances = discoveryClient.getInstances("CLOUD-PAYMENT-SERVICE");
+        instances.forEach(instance -> {
+            System.out.println(instance.getServiceId() + "\t" + instance.getHost() + "\t" + instance.getPort() + "\t" + instance.getUri());
+        });
+
+        return this.discoveryClient;
     }
 }
