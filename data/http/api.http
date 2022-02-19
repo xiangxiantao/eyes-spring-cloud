@@ -33,3 +33,17 @@ Content-Type: application/json
 
 ###
 GET http://127.0.0.1:8001/payment/discovery
+
+###
+GET http://localhost:8004/payment/get?id=2
+
+###
+GET http://127.0.0.1:81/order/get?id=2
+
+###
+POST http://127.0.0.1:81/order/create
+Content-Type: application/json
+
+{
+  "serial": "web serial"
+}
