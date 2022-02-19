@@ -47,3 +47,14 @@ Content-Type: application/json
 {
   "serial": "web serial"
 }
+
+###
+GET http://127.0.0.1:82/order/get?id=2
+
+###
+POST http://127.0.0.1:82/order/create
+Content-Type: application/json
+
+{
+  "serial": "web serial"
+}
