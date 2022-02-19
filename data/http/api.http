@@ -1,0 +1,21 @@
+###
+GET http://localhost:8001/payment/get?id=2
+
+###
+POST http://127.0.0.1:8001/payment/create
+Content-Type: application/json
+
+{
+  "serial": "web serial"
+}
+
+###
+GET http://127.0.0.1:80/order/get?id=2
+
+###
+POST http://127.0.0.1:80/order/create
+Content-Type: application/json
+
+{
+  "serial": "web serial"
+}
