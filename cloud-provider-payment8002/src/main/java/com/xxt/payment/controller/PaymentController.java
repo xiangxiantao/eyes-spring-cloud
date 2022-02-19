@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
  **/
 @RestController
 @Slf4j
-@RequestMapping("/payment")
+@RequestMapping("payment")
 public class PaymentController {
 
     @Value("${server.port}")
@@ -24,14 +24,14 @@ public class PaymentController {
     private PaymentService paymentService;
 
     @GetMapping("/get")
-    public CommonResult getById(Long id) {
+    public CommonResult<Payment> getById(Long id) {
         log.info("coming get");
         final Payment payment = paymentService.getById(id);
         return new CommonResult(200, "success" + port, payment);
     }
 
     @PostMapping("/create")
-    public CommonResult create(@RequestBody Payment payment) {
+    public CommonResult<Payment> create(@RequestBody Payment payment) {
         log.info("coming create");
         int result = paymentService.create(payment);
         if (result > 0) {
