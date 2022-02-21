@@ -58,3 +58,9 @@ Content-Type: application/json
 {
   "serial": "web serial"
 }
+
+###
+GET http://127.0.0.1:8007/hystrix/success?id=2
+
+###
+GET http://127.0.0.1:8007/hystrix/timeout?id=2
