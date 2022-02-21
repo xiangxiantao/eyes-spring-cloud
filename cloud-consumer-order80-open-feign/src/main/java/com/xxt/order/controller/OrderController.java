@@ -21,9 +21,6 @@ public class OrderController {
     @Autowired
     private PaymentFeignService paymentFeignService;
 
-    @Autowired
-    private RestTemplate restTemplate;
-
     @GetMapping("/get")
     public CommonResult getById(Long id) {
         return paymentFeignService.getById(id);
