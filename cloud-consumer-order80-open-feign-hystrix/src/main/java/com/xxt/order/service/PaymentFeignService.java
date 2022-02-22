@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @date 2022-02-21 20:08
  **/
 @Component
-@FeignClient(value = "CLOUD-PAYMENT-SERVICE")
+@FeignClient(value = "CLOUD-PAYMENT-SERVICE", fallback = PaymentFeignServiceFallbackImpl.class)
 public interface PaymentFeignService {
 
     @GetMapping("/hystrix/timeout")

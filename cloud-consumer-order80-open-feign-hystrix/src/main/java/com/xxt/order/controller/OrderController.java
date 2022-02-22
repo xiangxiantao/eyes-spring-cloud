@@ -28,9 +28,9 @@ public class OrderController {
     //@HystrixCommand(fallbackMethod = "getByIdFallback", commandProperties = {
     //        @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "300")
     //})
-    @HystrixCommand(commandProperties = {
-            @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "300")
-    })
+    //@HystrixCommand(commandProperties = {
+    //        @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "300")
+    //})
     @GetMapping("/get")
     public CommonResult getById(Long id) {
         String result = paymentFeignService.timeout(id.intValue());
