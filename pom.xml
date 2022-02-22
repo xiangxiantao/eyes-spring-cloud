@@ -16,6 +16,7 @@
         <module>cloud-provider-payment8006</module>
         <module>cloud-consumer-order80</module>
         <module>cloud-consumer-order80-open-feign</module>
+        <module>cloud-consumer-order80-open-feign-hystrix</module>
         <module>cloud-consumer-order81-zk</module>
         <module>cloud-consumer-order82-consul</module>
         <module>cloud-common-api</module>

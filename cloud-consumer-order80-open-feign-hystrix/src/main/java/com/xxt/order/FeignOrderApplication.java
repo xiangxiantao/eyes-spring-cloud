@@ -1,22 +1,20 @@
-package com.xxt.payment;
+package com.xxt.order;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 
 /**
  * @author xiantao.xiang
  * @date 2022-02-18 22:28
  **/
 @SpringBootApplication
-@EnableEurekaClient
-@EnableDiscoveryClient
+@EnableFeignClients
 @EnableCircuitBreaker
-public class HystrixApplication {
+public class FeignOrderApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(HystrixApplication.class, args);
+        SpringApplication.run(FeignOrderApplication.class, args);
     }
 }

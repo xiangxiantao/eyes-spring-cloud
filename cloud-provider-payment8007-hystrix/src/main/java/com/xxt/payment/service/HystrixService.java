@@ -1,9 +1,9 @@
 package com.xxt.payment.service;
 
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import org.springframework.stereotype.Service;
-
-import java.util.concurrent.TimeUnit;
 
 /**
  * @author lixiaolong
@@ -30,19 +30,33 @@ public class HystrixService {
      * @param id id
      * @return results
      */
+    @HystrixCommand(fallbackMethod = "fallback", commandProperties = {
+            @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "8000")
+    })
     public String infoTimeOut(Integer id) {
 //        int age = 10/0;
-        int second = 3;
         long start = System.currentTimeMillis();
         try {
-            TimeUnit.SECONDS.sleep(second);
+            Thread.sleep(500);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
         long end = System.currentTimeMillis();
         System.out.println(end - start);
         return "线程池:  " + Thread.currentThread().getName() + " paymentInfoTimeOut,id:  " + id + "\t"
-                + "O(∩_∩)O哈哈~" + "  耗时(秒): " + second;
+                + "O(∩_∩)O哈哈~" + "  耗时(毫秒): " + (end - start);
+    }
+
+
+    /**
+     * paymentInfoTimeOut 方法失败后 自动调用此方法 实现服务降级 告知调用者 paymentInfoTimeOut 目前无法正常调用
+     *
+     * @param id
+     * @return
+     */
+    public String fallback(Integer id) {
+        return "线程池:  " + Thread.currentThread().getName() + "  paymentInfoTimeOutHandler8001系统繁忙或者运行报错，请稍后再试,id:  " + id + "\t"
+                + "o(╥﹏╥)o";
     }
 
 }
