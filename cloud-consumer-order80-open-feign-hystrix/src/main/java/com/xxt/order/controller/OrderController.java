@@ -1,6 +1,7 @@
 package com.xxt.order.controller;
 
 
+import com.netflix.hystrix.contrib.javanica.annotation.DefaultProperties;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import com.xxt.cloud.common.base.CommonResult;
@@ -18,12 +19,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @Slf4j
 @RequestMapping("/order")
+@DefaultProperties(defaultFallback = "globalFallback")
 public class OrderController {
 
     @Autowired
     private PaymentFeignService paymentFeignService;
 
-    @HystrixCommand(fallbackMethod = "getByIdFallback", commandProperties = {
+    //@HystrixCommand(fallbackMethod = "getByIdFallback", commandProperties = {
+    //        @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "300")
+    //})
+    @HystrixCommand(commandProperties = {
             @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "300")
     })
     @GetMapping("/get")
@@ -35,5 +40,9 @@ public class OrderController {
 
     public CommonResult getByIdFallback(Long id) {
         return new CommonResult<String>(200, "ok", "本地的controller兜底");
+    }
+
+    public CommonResult globalFallback() {
+        return new CommonResult<String>(200, "ok", "本地的全局controller兜底");
     }
 }
