@@ -29,7 +29,7 @@ public class OrderController {
     //        @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "300")
     //})
     //@HystrixCommand(commandProperties = {
-    //        @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "300")
+    //        @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "2000")
     //})
     @GetMapping("/get")
     public CommonResult getById(Long id) {
