@@ -64,3 +64,6 @@ GET http://127.0.0.1:8007/hystrix/success?id=2
 
 ###
 GET http://127.0.0.1:8007/hystrix/timeout?id=2
+
+###
+GET http://localhost:8007/hystrix/cb?id=-2

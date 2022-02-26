@@ -5,6 +5,8 @@ import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import org.springframework.stereotype.Service;
 
+import java.util.Random;
+
 /**
  * @author lixiaolong
  * @date 2020-02-20 11:11
@@ -57,6 +59,24 @@ public class HystrixService {
     public String fallback(Integer id) {
         return "线程池:  " + Thread.currentThread().getName() + "  paymentInfoTimeOutHandler8001系统繁忙或者运行报错，请稍后再试,id:  " + id + "\t"
                 + "o(╥﹏╥)o";
+    }
+
+
+    @HystrixCommand(fallbackMethod = "cbFallback", commandProperties = {
+            @HystrixProperty(name = "circuitBreaker.enabled", value = "true"),/* 是否开启断路器*/
+            @HystrixProperty(name = "circuitBreaker.requestVolumeThreshold", value = "10"),// 请求次数
+            @HystrixProperty(name = "circuitBreaker.sleepWindowInMilliseconds", value = "10000"), // 时间窗口期
+            @HystrixProperty(name = "circuitBreaker.errorThresholdPercentage", value = "60"),// 失败率达到多少后跳闸
+    })
+    public String cb(Integer id) {
+        if (id < 0) {
+            throw new RuntimeException("id不能为负数");
+        }
+        return "调用成功" + new Random().nextInt();
+    }
+
+    public String cbFallback(Integer id) {
+        return "系统错误，请稍后再试" + new Random().nextInt();
     }
 
 }

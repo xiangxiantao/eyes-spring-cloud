@@ -39,4 +39,8 @@ public class HystrixController {
         return hystrixService.infoTimeOut(id);
     }
 
+    @GetMapping("/cb")
+    public String cb(@RequestParam("id") String id) {
+        return hystrixService.cb(Integer.parseInt(id));
+    }
 }
